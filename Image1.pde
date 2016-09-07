@@ -2,23 +2,25 @@
 //  Mostly a find darkest within radius and move there, kind of thing.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void random_darkness_walk() {
-  int x, y;
-
-  find_darkest();
-  x = darkest_x;
-  y = darkest_y;
-  squiggle_count++;
+  if(!stop_drawing){
+    int x, y;
   
-  find_darkest_neighbor(x, y);
-  move_abs(int(darkest_x*drawing_scale+x_offset), int(darkest_y*drawing_scale+y_offset));
-  pen_down();
-  
-  for (int s = 0; s < squiggle_length; s++) {
-    find_darkest_neighbor(x, y);
-    lighten(adjustbrightness, darkest_x, darkest_y);
-    move_abs(int(darkest_x*drawing_scale+x_offset), int(darkest_y*drawing_scale+y_offset));
+    find_darkest();
     x = darkest_x;
     y = darkest_y;
+    squiggle_count++;
+    
+    find_darkest_neighbor(x, y);
+    move_abs(int(darkest_x*drawing_scale+x_offset), int(darkest_y*drawing_scale+y_offset));
+    pen_down();
+    
+    for (int s = 0; s < squiggle_length; s++) {
+      find_darkest_neighbor(x, y);
+      lighten(adjustbrightness, darkest_x, darkest_y);
+      move_abs(int(darkest_x*drawing_scale+x_offset), int(darkest_y*drawing_scale+y_offset));
+      x = darkest_x;
+      y = darkest_y;
+    }
   }
   pen_up();
 }

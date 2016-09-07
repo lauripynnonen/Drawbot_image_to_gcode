@@ -6,6 +6,7 @@ void pen_up() {
   String buf = "G1 Z0";
   is_pen_down = false;
   OUTPUT.println(buf);
+  endShape();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,6 +14,7 @@ void pen_down() {
   String buf = "G1 Z1";
   is_pen_down = true;
   OUTPUT.println(buf);
+  beginShape();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +28,7 @@ void move_abs(int x, int y) {
   
   if (is_pen_down) {
     stroke(0, 100, 0, 100-(squiggle_count * sharpie_dry_out));
-    line(x_old + center_x, y_old + center_y, x + center_x, y + center_y);
+    vertex(x + center_x,y + center_y);
   }
   
   x_old = x;
